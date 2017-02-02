@@ -1,9 +1,9 @@
 //
-//  main.c
+//  GPA.c
 //  Lab1
 //
 //  Created by chungonion on 25/1/2017.
-//  Copyright © 2017年 chungonion. All rights reserved.
+//  Copyright © 2017年 chungonion.
 //
 #include "stdio.h"
 #include "stdlib.h"
