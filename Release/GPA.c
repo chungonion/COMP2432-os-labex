@@ -69,7 +69,7 @@ int main(int argc, char *argv[]){
 		printf("Your GPA for 0 subjects is 0\n");
 	}
 
-	printf("Some U:\n");
+	printf("Some U:\n"); //This part calculates another Uni's GPA
 	num_valid_subj = 0;
 	sum_gp = 0;
 	for (i=1; i<=num_subj; i++) {
