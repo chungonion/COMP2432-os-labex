@@ -46,7 +46,6 @@ checkMissingGame (){
 
 displayResult (){
     local teamOrder=()
-    local topScore=0
     local i
     local j
 
@@ -62,10 +61,11 @@ displayResult (){
     for((i=0;i<teamcount;i++));do
         tempLargest=$i
         for((j=teamcount-1;j>i;j--));do
-            if [ $((teamresult[teamOrder[j]])) -gt $((teamresult[tempLargest])) ];then
+            if [ $((teamresult[teamOrder[j]])) -gt $((teamresult[teamOrder[tempLargest]])) ];then
                 tempLargest=$j
             fi
-
+            # echo J= $j
+            # echo LArgest= $tempLargest
         done
         temp=$((teamOrder[i]))
         teamOrder[$i]=${teamOrder[$tempLargest]}
@@ -74,6 +74,7 @@ displayResult (){
 
     done
     # echo ${teamOrder[@]}
+
     printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" "Rank" "Team" "P" "W" "D" "L" "GF" "GA" "GD" "Points"
 
     for((i=0;i<${#teamOrder[@]};i++));do
