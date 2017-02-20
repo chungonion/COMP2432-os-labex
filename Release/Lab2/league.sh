@@ -59,24 +59,24 @@ displayResult (){
     done
 
     # TODO selection sort!!!
-    for((i=teamcount-1;i>0;i--));do
-        tempSmallest=$i
-        for((j=0;j<i;j++));do
-            if [ $((teamresult[teamOrder[j]])) -gt $((teamresult[tempSmallest])) ];then
-                tempSmallest=$j
+    for((i=0;i<teamcount;i++));do
+        tempLargest=$i
+        for((j=teamcount-1;j>i;j--));do
+            if [ $((teamresult[teamOrder[j]])) -gt $((teamresult[tempLargest])) ];then
+                # tempLargest=$j
             fi
 
         done
         temp=$((teamOrder[i]))
-        teamOrder[$i]=${teamOrder[$tempSmallest]}
-        teamOrder[$tempSmallest]=$temp
-        echo ${teamOrder[@]}
+        teamOrder[$i]=${teamOrder[$tempLargest]}
+        teamOrder[$tempLargest]=$temp
+        # echo ${teamOrder[@]}
 
     done
-    echo ${teamOrder[@]}
+    # echo ${teamOrder[@]}
     printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" "Rank" "Team" "P" "W" "D" "L" "GF" "GA" "GD" "Points"
 
-    for((i=${#teamOrder[@]}-1;i>=0;i--));do
+    for((i=0;i<${#teamOrder[@]};i++));do
         printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" \
         $((i+1)) ${teamname[${teamOrder[$i]}]} $((teamWin[teamOrder[i]]+teamTie[teamOrder[i]]+teamLost[teamOrder[i]])) $((teamWin[teamOrder[i]])) $((teamTie[teamOrder[i]])) $((teamLost[teamOrder[i]]))\
         $((teamGF[teamOrder[i]])) $((teamGA[teamOrder[i]])) $((teamGF[teamOrder[i]]-teamGA[teamOrder[i]])) $((teamresult[teamOrder[i]]))
