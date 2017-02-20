@@ -38,6 +38,12 @@ checkGameRound (){
     fi
 }
 
+checkMissingGame (){
+    for ((i = 0; i < teamcount; i++)); do
+        :
+    done
+}
+
 displayResult (){
     local teamOrder=()
     local topScore=0
@@ -53,10 +59,10 @@ displayResult (){
     done
 
     # TODO selection sort!!!
-    for((i=teamcount-1;i>=0;i--));do
+    for((i=teamcount-1;i>0;i--));do
         tempSmallest=$i
-        for((j=0;j<=i;j++));do
-            if [ $((teamresult[teamOrder[j]])) -lt $((teamresult[tempSmallest])) ];then
+        for((j=0;j<i;j++));do
+            if [ $((teamresult[teamOrder[j]])) -gt $((teamresult[tempSmallest])) ];then
                 tempSmallest=$j
             fi
 
@@ -70,7 +76,7 @@ displayResult (){
     echo ${teamOrder[@]}
     printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" "Rank" "Team" "P" "W" "D" "L" "GF" "GA" "GD" "Points"
 
-    for((i=0;i<${#teamOrder[@]};i++));do
+    for((i=${#teamOrder[@]}-1;i>=0;i--));do
         printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" \
         $((i+1)) ${teamname[${teamOrder[$i]}]} $((teamWin[teamOrder[i]]+teamTie[teamOrder[i]]+teamLost[teamOrder[i]])) $((teamWin[teamOrder[i]])) $((teamTie[teamOrder[i]])) $((teamLost[teamOrder[i]]))\
         $((teamGF[teamOrder[i]])) $((teamGA[teamOrder[i]])) $((teamGF[teamOrder[i]]-teamGA[teamOrder[i]])) $((teamresult[teamOrder[i]]))
@@ -133,8 +139,6 @@ for ((i=1; i <= $roundcount;i++));do
 
             getTeamIndex ${array[$((j+2))]}
             bindex=$?
-
-
 
             if [ $aindex -ne 255 -a $bindex -ne 255 ];then
                 agoal=${array[$((j+1))]}
