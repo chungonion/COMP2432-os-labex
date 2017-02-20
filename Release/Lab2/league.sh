@@ -63,7 +63,7 @@ displayResult (){
         tempLargest=$i
         for((j=teamcount-1;j>i;j--));do
             if [ $((teamresult[teamOrder[j]])) -gt $((teamresult[tempLargest])) ];then
-                # tempLargest=$j
+                tempLargest=$j
             fi
 
         done
