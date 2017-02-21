@@ -79,10 +79,17 @@ displayResult (){
     printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" "Rank" "Team" "P" "W" "D" "L" "GF" "GA" "GD" "Points"
 
     for((i=0;i<${#teamOrder[@]};i++));do
-        printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" \
-        $((i+1)) ${teamname[${teamOrder[$i]}]} $((teamWin[teamOrder[i]]+teamTie[teamOrder[i]]+teamLost[teamOrder[i]])) $((teamWin[teamOrder[i]])) $((teamTie[teamOrder[i]])) $((teamLost[teamOrder[i]]))\
-        $((teamGF[teamOrder[i]])) $((teamGA[teamOrder[i]])) $((teamGF[teamOrder[i]]-teamGA[teamOrder[i]])) $((teamresult[teamOrder[i]]))
-
+        gamePlayed=$((teamWin[teamOrder[i]]+teamTie[teamOrder[i]]+teamLost[teamOrder[i]]))
+        gameMissed=$((roundcount-gamePlayed-2))
+        if [ $gameMissed -gt 0 ];then
+            printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" \
+            $((i+1)) ${teamname[${teamOrder[$i]}]} "$((gamePlayed+gameMissed))($gamePlayed)" $((teamWin[teamOrder[i]])) "$((teamTie[teamOrder[i]]+gameMissed))($((teamTie[teamOrder[i]])))" $((teamLost[teamOrder[i]]))\
+            $((teamGF[teamOrder[i]])) $((teamGA[teamOrder[i]])) $((teamGF[teamOrder[i]]-teamGA[teamOrder[i]])) "$((teamresult[teamOrder[i]]+gameMissed))($((teamresult[teamOrder[i]])))"
+        else
+            printf "%-8s%-12s%-5s%-5s%-5s%-5s%-6s%-6s%-6s%-9s\n" \
+            $((i+1)) ${teamname[${teamOrder[$i]}]} $gamePlayed $((teamWin[teamOrder[i]])) $((teamTie[teamOrder[i]])) $((teamLost[teamOrder[i]]))\
+            $((teamGF[teamOrder[i]])) $((teamGA[teamOrder[i]])) $((teamGF[teamOrder[i]]-teamGA[teamOrder[i]])) $((teamresult[teamOrder[i]]))
+        fi
     done
    #TODO display the result, print that accordingly.
   #statements
