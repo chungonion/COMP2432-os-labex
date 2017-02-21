@@ -145,20 +145,17 @@ for ((i=1; i <= $roundcount;i++));do
                 agoal=${array[$((j+1))]}
                 bgoal=${array[$((j+3))]}
                 if [ $agoal -gt $bgoal ];then
-                #   echo ${teamname[$aindex]} wins!
                   teamWin[aindex]=$((teamWin[aindex]+1))
                   teamLost[bindex]=$((teamLost[bindex]+1))
                   teamresult[aindex]=$((teamresult[aindex]+3))
                 #   echo ${teamresult[aindex]}
 
                   elif [ $agoal -lt $bgoal ];then
-                    #   echo ${teamname[$bindex]} wins!
                       teamWin[bindex]=$((teamWin[bindex]+1))
                       teamLost[aindex]=$((teamLost[aindex]+1))
                       teamresult[bindex]=$((teamresult[bindex]+3))
                     #   echo ${teamresult[bindex]}
                 else
-                #   echo Tie!
                   teamTie[aindex]=$((teamTie[aindex]+1))
                   teamTie[bindex]=$((teamTie[bindex]+1))
                   teamresult[aindex]=$((teamresult[aindex]+1))
@@ -179,14 +176,6 @@ for ((i=1; i <= $roundcount;i++));do
         done
     fi
 
-    #for loop here x3
-
-
-
-
-    #   echo $agoal $bgoal
-
-
     # variable like the index of two team, and also needs to calculate the result.
 
     #find the team name, get the index, and calculate the result
@@ -203,20 +192,3 @@ displayResult
 # echo Scores : ${teamname[3]} ${teamresult[3]} ${teamGF[3]} ${teamGA[3]} Win:${teamWin[3]} Tie:${teamTie[3]} Lost:${teamLost[3]}
 # echo Scores : ${teamname[4]} ${teamresult[4]} ${teamGF[4]} ${teamGA[4]} Win:${teamWin[4]} Tie:${teamTie[4]} Lost:${teamLost[4]}
 # # Above is a testing statement
-
-
-
-
-
-
-
-# for testing purpose
-# string1='Str1'
-# string2='Str1667'
-#
-# if [ "$string1" = "$string2" ]; then
-#   #statements
-#   echo Equal
-#   else
-#       echo No
-# fi
