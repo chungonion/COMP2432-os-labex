@@ -16,6 +16,7 @@ teamGF=()
 teamGA=()
 teamGD=()
 teammatchcount=()
+filename=0
 
 getTeamIndex (){
   local i #Local variable!!!!
@@ -87,26 +88,21 @@ displayResult (){
   #statements
 }
 
-for i in ${*};do
-  case $i in
-    round*)
-      temp=$(($roundcount+1))
-      filename="round$temp"
-      if [ "$i" = $filename ];then
-        roundcount=$((roundcount+1))
-      fi
-    ;;
-    *) teamname[teamcount]=$i # pre-increment teamcount, add it to array
-      teamGA[teamcount]=0
-      teamGF[teamcount]=0
-      teamWin[teamcount]=0
-      teamTie[teamcount]=0
-      teamLost[teamcount]=0
-      teamresult[teamcount]=0
-      teamcount=$((teamcount+1))
-    ;;
-  esac
+for i in ${@:1:${#}-1};do
+
+    teamname[teamcount]=$i # pre-increment teamcount, add it to array
+    teamGA[teamcount]=0
+    teamGF[teamcount]=0
+    teamWin[teamcount]=0
+    teamTie[teamcount]=0
+    teamLost[teamcount]=0
+    teamresult[teamcount]=0
+    teamcount=$((teamcount+1))
+
 done
+roundcount=$((teamcount*2))
+filename=${@: -1}
+echo $filename
 
 echo team: $teamcount
 checkGameRound
@@ -116,11 +112,11 @@ if [ $roundcount -ne $(($teamcount*2)) ];then #integer comparision
 fi
 
 for ((i=1; i <= $roundcount;i++));do
-  if [ ! -f round$i.txt ];then
-    echo "Error! The round file is not found! Program now terminates."
+  if [ ! -f $filename$i ];then
+    echo "Error! The $filename$i file is not found!"
     #   exit
   else
-    line=`cat round$i.txt`
+    line=`cat $filename$i`
     # exec < $filename
     IFS=' ' read -r -a array <<< "$line"
     # input of readline
