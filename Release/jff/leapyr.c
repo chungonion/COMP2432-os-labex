@@ -13,7 +13,7 @@ int checkLeap(int year){
 int main(int argc, char const *argv[]) {
     /* code */
     int status;
-    status = checkLeap(2016);
+    status = checkLeap(atoi(argv[1]));
     printf("%d\n",status );
     return 0;
 }
