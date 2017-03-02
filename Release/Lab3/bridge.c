@@ -1,44 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Constants declaration
 const int PLAYER_NOS = 4;
 const int CARD_NOS = 52;
 const int MAX_CARDS = 13;
 const int MAX_CARDS_PER_TYPE = 13;
 
 int main(int argc, char *argv[]) {
+
+    //Array Initialisation
 	char player_cards[MAX_CARDS][2];
 	char diamonds_cards[MAX_CARDS_PER_TYPE][2];
 	char hearts_cards[MAX_CARDS_PER_TYPE][2];
 	char clubs_cards[MAX_CARDS_PER_TYPE][2];
 	char spades_cards[MAX_CARDS_PER_TYPE][2];
-
 	int players[PLAYER_NOS];
 
-
-
+    //Iterators.
 	int i,j;
 
 	for (i=0; i<PLAYER_NOS; i++) {
 		players[i]=fork();
-		if (players[i]==0) { //This is a child
+		if (players[i]==0) { //This is a child, then execute the statements for child below
             break;
-		}else{ //This is a parent
-			   //printf("%d Create\n",i); //Debug
-			continue;
+		}else{
+			continue; //This is a parent, continue to fork new child.
 		}
 	}
 
     if (i==PLAYER_NOS){
-        return 0;
+        return 0;  // Parent forked enough child, parant terminates the programme(Child still running!).
     }
 
-    // printf("Child %d is running!\n",i);
     for (j=0; j<((argc-1)/4); j++) {
-        player_cards[j][0]=argv[j*4+i+1][0];
+        player_cards[j][0]=argv[j*4+i+1][0]; //Get the card of respective platers.
         player_cards[j][1]=argv[j*4+i+1][1];
     }
-    printf("Child %d pid: %d   ",i+1,getpid());
+    printf("Child: %d, pid %d: ",i+1,getpid());
     for (j=0; j<MAX_CARDS; j++) {
         printf("%c%c ",player_cards[j][0],player_cards[j][1]);
     }
@@ -48,6 +47,8 @@ int main(int argc, char *argv[]) {
     int clubs_array_index=0;
     int spades_array_index=0;
     for (j=0; j<((argc-1)/4); j++) {
+
+        //Sort the respective set of cards.
         switch (player_cards[j][0]) {
         case 'D':
             diamonds_cards[diamonds_array_index][0]=player_cards[j][0];
@@ -95,10 +96,10 @@ int main(int argc, char *argv[]) {
 
     printf("\n");
 
-    printf("Child %d pid: %d   ",i+1,getpid());
-
-
-    printf("\n");
+    // printf("Child %d pid: %d   ",i+1,getpid());
+    //
+    // TO-DO, score calculation
+    // printf("\n");
 
 	return 0;
 }
