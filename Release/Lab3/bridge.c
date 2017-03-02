@@ -7,10 +7,6 @@ const int MAX_CARDS = 13;
 const int MAX_CARDS_PER_TYPE = 13;
 
 int main(int argc, char *argv[]) {
-	// char player1[MAX_CARDS][2];
-	// char player2[MAX_CARDS][2];
-	// char player3[MAX_CARDS][2];
-	// char player4[MAX_CARDS][2];
 	char player_cards[MAX_CARDS][2];
 	char diamonds_cards[MAX_CARDS_PER_TYPE][2];
 	char hearts_cards[MAX_CARDS_PER_TYPE][2];
@@ -101,7 +97,7 @@ int main(int argc, char *argv[]) {
 
     printf("Child %d pid: %d   ",i+1,getpid());
 
-    
+
     printf("\n");
 
 	return 0;
