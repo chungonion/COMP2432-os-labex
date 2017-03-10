@@ -4,6 +4,7 @@
 
 
 int const MAX_TEAM_NOS = 30;
+int const MAX_COLUMNS = 7;
 int const PLAYED_COLUMN = 0;
 int const WIN_COLUMN = 1;
 int const DRAW_COLUMN = 2;
@@ -14,7 +15,7 @@ int const SCORE_COLUMN = 6;
 
 
 
-void result_display(int team_nos,int game_result[MAX_TEAM_NOS][7],char const *team_name[MAX_TEAM_NOS]){
+void result_display(int team_nos,int game_result[MAX_TEAM_NOS][MAX_COLUMNS],char const *team_name[MAX_TEAM_NOS]){
 	int i,j;
 	int team_order[MAX_TEAM_NOS];
 	for (i=0; i<team_nos; i++) {
@@ -68,7 +69,7 @@ int main(int argc, char const *argv[]) {
 	int team_nos;
 	int game_per_round;
 	int total_rounds;
-	int game_result[MAX_TEAM_NOS][7] = {0};
+	int game_result[MAX_TEAM_NOS][MAX_COLUMNS];
 	char const *team_name[MAX_TEAM_NOS];
 	char const *filename;
 
@@ -81,8 +82,18 @@ int main(int argc, char const *argv[]) {
 	game_per_round = team_nos/2;
 	filename=argv[argc-1];
 
+
+
 	//Iterators
-	int i;
+	int i,j;
+
+	for (i=0;i<MAX_TEAM_NOS;i++){
+		for (j=0;j<MAX_COLUMNS;j++){
+			game_result[i][j]=0;
+		}
+	}
+
+	//dllm CentOS you make me use chiu bit.
 	for (i=0; i<argc-2; i++) {
 		team_name[i]=argv[i+1]; //TODO: REALLY A BUG?
 	}
